@@ -1,6 +1,7 @@
 package model;
 
 import lombok.*;
+import lombok.experimental.Wither;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -21,6 +22,9 @@ public class UsualPerson implements Person {
     private boolean isProgrammer;
     @Singular
     private List<Contact> contacts;
+
+    @Wither
+    boolean broke;
 
    public String toString() {
         String s = "Name: " + firstName + " " + lastName + "\n"

@@ -4,12 +4,14 @@ import model.Country;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-@ComponentScan("model")
+@ComponentScan({"model", "aop"})
+@EnableAspectJAutoProxy
 public class TestConfiguration {
     @Bean
     public Long id() {
@@ -52,5 +54,10 @@ public class TestConfiguration {
                 Contact.builder().id(1L).type("EMAIL").content("asd@asd.ru").build(),
                 Contact.builder().id(1L).content("+7-234-456-67-89").build()
         );
+    }
+
+    @Bean
+    public boolean broke(){
+        return false;
     }
 }
