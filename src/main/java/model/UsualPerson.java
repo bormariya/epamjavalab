@@ -4,14 +4,14 @@ import lombok.*;
 import lombok.experimental.Wither;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Getter
 @Setter
+@Getter
 @Builder
-@Component("person")
 @EqualsAndHashCode
+@AllArgsConstructor
+@Component("person")
 public class UsualPerson implements Person {
     private long id;
     private String firstName;
@@ -41,4 +41,5 @@ public class UsualPerson implements Person {
         }
         return s;
     }
+
 }

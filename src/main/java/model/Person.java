@@ -13,4 +13,5 @@ public interface Person {
     boolean isProgrammer();
     List<Contact> getContacts();
     boolean isBroke();
+    Person withBroke(boolean broke);
 }
