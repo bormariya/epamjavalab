@@ -5,12 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
+
 @Configuration
-@ComponentScan({"model", "aop"})
+@ComponentScan({"model", "aop", "dao"})
 @EnableAspectJAutoProxy
 public class TestConfiguration {
     @Bean
@@ -59,5 +63,16 @@ public class TestConfiguration {
     @Bean
     public boolean broke(){
         return false;
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .generateUniqueName(true)
+                .setType(H2)
+                .setScriptEncoding("UTF-8")
+                .ignoreFailedDrops(true)
+                .addScript("db-schema.sql")
+                .build();
     }
 }
