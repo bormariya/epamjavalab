@@ -6,19 +6,26 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
 @Setter
+@Entity
 @Builder
-@Component("country")
 @EqualsAndHashCode
+@Component("country")
+@Table(name = "country")
 public class Country implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private long id;
-    private String name;
-    private String codeName;
+	@Id
+    @GeneratedValue
+	long id;
+	@Column
+    String name;
+	@Column(name = "code_name")
+    String codeName;
 
     public Country() {
     }

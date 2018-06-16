@@ -4,13 +4,13 @@ import lombok.experimental.NonFinal;
 import model.ApuBar;
 import model.Bar;
 import model.UsualPerson;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import utils.TestConfiguration;
 import utils.TestUtils;
 
 import java.io.IOException;

@@ -1,4 +1,5 @@
 import dao.CountryDao;
+import dao.CountryDaoImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import utils.TestConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class JdbcTest{
     
     @Test
     @DirtiesContext
-    public void testCountryList() {
+    public void testCountryList() throws Throwable {
         List<Country> countryList = countryDao.getCountryList();
         assertNotNull(countryList);
         assertEquals(expectedCountryList.size(), countryList.size());
@@ -70,9 +72,9 @@ public class JdbcTest{
     }
 
     private void initExpectedCountryLists() {
-         for (int i = 0; i < CountryDao.COUNTRY_INIT_DATA.length; i++) {
-             String[] countryInitData = CountryDao.COUNTRY_INIT_DATA[i];
-             Country country = new Country(i, countryInitData[0], countryInitData[1]);
+         for (int i = 0; i < CountryDaoImpl.COUNTRY_INIT_DATA.length; i++) {
+             String[] countryInitData = CountryDaoImpl.COUNTRY_INIT_DATA[i];
+             Country country = new Country(i + 1, countryInitData[0], countryInitData[1]);
              expectedCountryList.add(country);
              if (country.getName().startsWith("A")) {
                  expectedCountryListStartsWithA.add(country);

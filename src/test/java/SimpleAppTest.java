@@ -4,6 +4,7 @@ import model.UsualPerson;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import utils.TestConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

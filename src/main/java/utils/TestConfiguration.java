@@ -1,11 +1,13 @@
+package utils;
 
+import lombok.AllArgsConstructor;
 import model.Contact;
 import model.Country;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.context.annotation.*;
+import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -14,9 +16,14 @@ import java.util.List;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
 @Configuration
-@ComponentScan({"model", "aop", "dao"})
+@AllArgsConstructor
 @EnableAspectJAutoProxy
+@ImportResource("orm.xml")
+@ComponentScan({"model", "aop", "dao"})
 public class TestConfiguration {
+
+    InstrumentationLoadTimeWeaver instrumentationLoadTimeWeaver;
+
     @Bean
     public Long id() {
         return 1L;
@@ -74,5 +81,15 @@ public class TestConfiguration {
                 .ignoreFailedDrops(true)
                 .addScript("db-schema.sql")
                 .build();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+        LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
+        bean.setDataSource(dataSource());
+        bean.setPersistenceUnitName("springframework.lab.orm.jpa");
+        bean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+        bean.setLoadTimeWeaver(instrumentationLoadTimeWeaver);
+        return bean;
     }
 }

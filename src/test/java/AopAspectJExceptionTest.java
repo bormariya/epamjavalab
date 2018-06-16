@@ -1,7 +1,3 @@
-import static lombok.AccessLevel.PRIVATE;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,9 +10,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import utils.TestConfiguration;
 import utils.TestUtils;
 
 import java.io.IOException;
+
+import static lombok.AccessLevel.PRIVATE;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @ExtendWith(SpringExtension.class)
