@@ -5,6 +5,7 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import utils.TestConfiguration;
 
@@ -15,7 +16,7 @@ import javax.sql.DataSource;
 @EnableAspectJAutoProxy
 @ImportResource("orm.xml")
 @Import(TestConfiguration.class)
-@ComponentScan({"model", "aop", "dao.lab7.jpa"})
+@ComponentScan({"model", "aop", "dao.lab7.jpa", "service"})
 public class TestConfigurationLab7 {
 
     InstrumentationLoadTimeWeaver instrumentationLoadTimeWeaver;
@@ -31,5 +32,10 @@ public class TestConfigurationLab7 {
         bean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         bean.setLoadTimeWeaver(instrumentationLoadTimeWeaver);
         return bean;
+    }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource);
     }
 }
