@@ -3,7 +3,16 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-    <persistence-unit name="springframework.lab.orm.jpa">
+    <persistence-unit name="springframework.dao.lab7.jpa">
+        <class>model.Country</class>
+
+        <properties>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+        </properties>
+
     </persistence-unit>
+
+
 
 </persistence>

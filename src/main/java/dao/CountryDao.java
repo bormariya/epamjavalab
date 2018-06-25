@@ -5,7 +5,8 @@ import model.Country;
 import java.util.List;
 
 public interface CountryDao {
-    default void save(Country country) throws Throwable {
+    default Country save(Country country) throws Throwable {
+        return null;
     }
 
     default List<Country> getCountryList() throws Throwable {

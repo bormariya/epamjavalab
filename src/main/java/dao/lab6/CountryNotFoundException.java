@@ -1,4 +1,4 @@
-package dao;
+package dao.lab6;
 
 public class CountryNotFoundException extends Exception {
 

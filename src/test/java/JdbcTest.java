@@ -1,5 +1,5 @@
 import dao.CountryDao;
-import dao.CountryDaoImpl;
+import dao.lab6.CountryDaoImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;

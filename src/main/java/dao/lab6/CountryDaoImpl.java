@@ -1,5 +1,6 @@
-package dao;
+package dao.lab6;
 
+import dao.CountryDao;
 import model.Country;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -11,11 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.List;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 @Repository("countryDao")
-public class CountryDaoImpl extends NamedParameterJdbcDaoSupport implements  CountryDao {
+public class CountryDaoImpl extends NamedParameterJdbcDaoSupport implements CountryDao {
 
 	public static final String[][] COUNTRY_INIT_DATA = {
 			{ "Russian Federation", "RU" },
@@ -52,14 +54,15 @@ public class CountryDaoImpl extends NamedParameterJdbcDaoSupport implements  Cou
 	}
 
 	@Override
-	public void save(Country country) {
+	public Country save(Country country) {
 		country.setId(save(country.getName(), country.getCodeName()));
+		return country;
 	}
 
 	private long save(String name, String codeName){
 		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 		getJdbcTemplate().update(con -> {
-			PreparedStatement ps = con.prepareStatement(LOAD_COUNTRIES_SQL, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(LOAD_COUNTRIES_SQL, RETURN_GENERATED_KEYS);
 			ps.setString(1, name);
 			ps.setString(2, codeName);
 			return  ps;
@@ -102,7 +105,7 @@ public class CountryDaoImpl extends NamedParameterJdbcDaoSupport implements  Cou
 				getDataSource());
 		SqlParameterSource sqlParameterSource;
 		for(String[] countryData : COUNTRY_INIT_DATA) {
-			save(countryData[0], countryData[1]);
+			save(new Country(countryData[0], countryData[1]));
 		}
 //		for (int i = 0; i < COUNTRY_INIT_DATA.length; i++) {
 //			sqlParameterSource = new MapSqlParameterSource();

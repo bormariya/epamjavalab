@@ -1,4 +1,4 @@
-package dao.jpa;
+package dao.lab7.jpa;
 
 import io.vavr.CheckedConsumer;
 import io.vavr.CheckedFunction1;
